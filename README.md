@@ -31,6 +31,25 @@ aws s3api get-public-access-block --bucket cloud-lab-504132672503-1779317812
 ## LOCASTACK
 
 ```bash
+export NODE_ENV=development
+export STAGE=local
+export SERVICE_NAME=serverless-elb
+
+# Aws local
+export AWS_ACCESS_KEY_ID=test
+export AWS_SECRET_ACCESS_KEY=test
+export AWS_DEFAULT_REGION=us-east-1
+
+# LocalStack
+export LOCALSTACK_HOST=http://localhost
+export EDGE_PORT=4566
+export AWS_ENDPOINT_URL=http://localhost:4566
+export LOCALSTACK_HOSTNAME=localhost
+export LOCALSTACK_AUTH_TOKEN="ls-" ## seu TOKEN
+
+```
+
+```bash
 ## subir o localstack
 localstack start -d
 
