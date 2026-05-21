@@ -12,41 +12,27 @@ aws s3api create-bucket --bucket cloud-lab-$(aws sts get-caller-identity --query
 echo "Hello Cloud" > arquivo.txt && aws s3 cp arquivo.txt s3://s3-oxetech-local-deployment-bucket/dados/arquivo.txt
 
 ### Copiar arquivo de imagem
-aws s3api put-object \ --bucket s3-oxetech-local-deployment-bucket \ --key image.jpg \ --body image.jpg
+aws s3api put-object \ --bucket cloud-lab-$(aws sts get-caller-identity --query Account --output text)-$(date +%s) \ --key image.jpg \ --body image.jpg
 
 ### Versionamentos
-aws s3api put-bucket-versioning --bucket cloud-lab-504132672503-1779315417 --versioning-configuration Status=Enabled
+aws s3api put-bucket-versioning --bucket cloud-lab-$(aws sts get-caller-identity --query Account --output text)-$(date +%s) --versioning-configuration Status=Enabled
 
 ### Link temporário
-aws s3 presign s3://cloud-lab-504132672503-1779317812/dados/arquivo.txt --expires-in 3600
+aws s3 presign s3://cloud-lab-$(aws sts get-caller-identity --query Account --output text)-$(date +%s)/dados/arquivo.txt --expires-in 3600
 
 ### Block publico
-aws s3api put-public-access-block --bucket cloud-lab-504132672503-1779317812 --public-access-block-configuration "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
+aws s3api put-public-access-block --bucket cloud-lab-$(aws sts get-caller-identity --query Account --output text)-$(date +%s) --public-access-block-configuration "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
 
 ### Verificar o Bloqueio
-aws s3api get-public-access-block --bucket cloud-lab-504132672503-1779317812
+aws s3api get-public-access-block --bucket cloud-lab-$(aws sts get-caller-identity --query Account --output text)-$(date +%s)
 
 ```
 
 ## LOCASTACK
 
 ```bash
-export NODE_ENV=development
-export STAGE=local
-export SERVICE_NAME=serverless-elb
-
-# Aws local
-export AWS_ACCESS_KEY_ID=test
-export AWS_SECRET_ACCESS_KEY=test
-export AWS_DEFAULT_REGION=us-east-1
-
-# LocalStack
-export LOCALSTACK_HOST=http://localhost
-export EDGE_PORT=4566
-export AWS_ENDPOINT_URL=http://localhost:4566
-export LOCALSTACK_HOSTNAME=localhost
-export LOCALSTACK_AUTH_TOKEN="ls-" ## seu TOKEN
-
+export GATEWAY_LISTEN="0.0.0.0:4566"
+export LOCALSTACK_HOST="localhost.localstack.cloud:4566"
 ```
 
 ```bash
