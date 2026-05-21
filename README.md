@@ -1,4 +1,4 @@
-# OXETEC - LAB
+# OXETECH - LAB
 
 ## Comandos usando em sala de aula
 
