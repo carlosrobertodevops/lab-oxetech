@@ -19,7 +19,7 @@ aws s3api put-object \ --bucket ${BUCKET_NAME} \ --key image.jpg \ --body image.
 aws s3api put-bucket-versioning --bucket ${BUCKET_NAME} --versioning-configuration Status=Enabled
 
 ### Link temporário
-aws s3 presign s3://BUCKET_NAME --expires-in 3600
+aws s3 presign s3://${BUCKET_NAME}/dados/arquivo.txt --expires-in 3600
 
 ### Block publico
 aws s3api put-public-access-block --bucket ${BUCKET_NAME} --public-access-block-configuration "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
@@ -59,7 +59,7 @@ aws s3api put-bucket-versioning --bucket ${BUCKET_NAME} --versioning-configurati
 aws s3 cp arquivo.png s3://${BUCKET_NAME}/image/arquivo.png
 
 ### Link temporário
-aws s3 presign 3://${BUCKET_NAME}/dados/arquivo.txt --expires-in 3600
+aws s3 presign s3://${BUCKET_NAME}/dados/arquivo.txt --expires-in 3600
 
 ### Block publico
 aws s3api put-public-access-block --bucket ${BUCKET_NAME} --public-access-block-configuration "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
