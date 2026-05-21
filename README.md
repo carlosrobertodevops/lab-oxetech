@@ -9,7 +9,7 @@
 aws s3api create-bucket --bucket cloud-lab-$(aws sts get-caller-identity --query Account --output text)-$(date +%s) --region us-east-1
 
 ### Copiar arquivo txt
-echo "Hello Cloud" > arquivo.txt && aws s3 cp arquivo.txt s3://s3-oxetech-local-deployment-bucket/dados/arquivo.txt
+echo "Hello Cloud" > arquivo.txt && aws s3 cp arquivo.txt s3://cloud-lab-$(aws sts get-caller-identity --query Account --output text)-$(date +%s)/dados/arquivo.txt
 
 ### Copiar arquivo de imagem
 aws s3api put-object \ --bucket cloud-lab-$(aws sts get-caller-identity --query Account --output text)-$(date +%s) \ --key image.jpg \ --body image.jpg
